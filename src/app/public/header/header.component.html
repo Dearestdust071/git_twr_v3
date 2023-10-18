@@ -1,0 +1,28 @@
+<!-- [ngClass]="{'!bg-transparent !duration-200': scrollPosition >= 610}" -->
+<header  class="scale-90 bg-orange-400 fixed top-0 left-0 w-full px-20 z-50 transition !duration-200 ease-in-out hover:text-slate-100 hover:scale-100  hover:!bg-indigo-500" [ngClass]="scroll >= 610 ?  '!bg-transparent !duration-200' : '!bg-orange-400'" >
+
+  <div id="info" class="flex justify-around items-center">
+    <a href="landing-page.component.html" class="text-xl font-bold"><img src="../../../assets/public/logoColorTransparente.png" alt="" class="h-20 w-20"></a>
+    <a href=""><img src="../../../assets/public/logoTransparenteNegro.png" alt="" class="h-20 w-36"></a>
+    <span > MX:(929) 556-2746  </span>
+  </div>
+  <hr>
+
+  <!-- <nav class="flex justify-center">
+    <a href="#home" class="p-3 relative">Home</a>
+    <a class="p-3 relative" (click)="veo()">Habitaciones</a>
+    <a href="Servicios" class="p-3 relative">Servicios</a>
+    <a href="Contacto" class="p-3 relative">Contacto</a>
+    <a href="Login" class="p-3 relative" (click)="redireccionar()">Login</a>
+    <a href="Login" class="p-3 relative" (click)="redireccionar()">{{accessData}}</a>
+
+  </nav> -->
+
+  <nav mat-tab-nav-bar mat-stretch-tabs="false" mat-align-tabs="center">
+    <a   mat-tab-link *ngFor="let link of links; index as i" [href]="link" (click)="activeLink = link"
+       [active]="activeLink == link" [@tabAnimation]> {{titles[i]}}
+    </a>
+  </nav>
+
+  <mat-tab-nav-panel></mat-tab-nav-panel>
+</header>

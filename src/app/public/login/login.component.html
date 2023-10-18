@@ -1,0 +1,188 @@
+<app-header></app-header>
+
+
+
+<div class="min-h-screen  !w-screen flex justify-center items-center !pt-36 ">
+
+
+  <!-- Subrutinas se llevan a cabo cuando se evalue el patron  -->
+
+
+  <div class="flip-card !w-2/3">
+    <div class="flip-card-inner" [ngClass]="frente ? 'vuelta' : ''">
+
+      <div class="flip-card-front" class="bg-yellow-200 rounded">
+
+
+        <h1 class="ml-[calc(85%/2)] font-thin" *ngIf="!frente">Login</h1>
+        <hr *ngIf="!frente" class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" style="size: 10px;">
+
+        <form action="" method="post" (ngSubmit)="Enviar()" class="!mb-40 mx-20" [formGroup]="FormularioLogin"
+          *ngIf="!frente">
+
+
+          <mat-form-field class="!block">
+            <mat-label for="Email">Correo electronico</mat-label>
+            <input matInput placeholder="email" class="'m-4" formControlName="email">
+          </mat-form-field>
+
+          <mat-form-field class="!block">
+            <mat-label>Ingrese su contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+
+          <re-captcha (resolved)="resolved($event)" siteKey="6LcEbY8oAAAAAPLov2dRfdBSy5c1rN5ryGH7K9RX"></re-captcha>
+
+
+
+          <button mat-button type="submit">Login</button>
+          <button mat-raised-button class="!m-10" (click)="voltear()">Signup</button>
+        </form>
+
+      </div>
+
+<!-- copilacion, interpretacion diferencias ventajas
+solo centrarse en las fases despues de la compilacion
+que es el analizador lexico etc
+
+
+que es flex como herramienta y las definiciones del archivo sus partes de definicion reglas y codigo de usuariuo como definir patrones como definir reglas acciones elementos
+y codigo de usuario o el codigo main
+
+
+-->
+
+
+
+
+      <div class="flip-card-back !bg-sky-400">
+
+        <form (ngSubmit)="signUp()" [formGroup]="FormularioRegistro" *ngIf="frente" class="flex flex-wrap gap-10 max-h-10">
+
+          <mat-form-field class="flex-1 w-64" class="!block">
+            <mat-label for="nombre">Nombre: </mat-label>
+            <input matInput placeholder="Nombre" formControlName="nombre" formControlName="nombre">
+          </mat-form-field>
+
+
+          <mat-form-field class="flex-1 w-64" class="!block">
+            <mat-label for="nombre">Usuario: </mat-label>
+            <input matInput placeholder="Nombre" formControlName="nombre">
+          </mat-form-field>
+
+          <mat-form-field class="flex-1 w-64" class="!block">
+            <mat-label for="apellidoPaterno">Apellido Paterno:</mat-label>
+            <input matInput placeholder="Apellido Paterno" formControlName="apellidoPaterno">
+          </mat-form-field>
+
+          <mat-form-field class="flex-1 w-64" class="!block">
+            <mat-label for="apellidoPaterno">Apellido Paterno:</mat-label>
+            <input matInput placeholder="Apellido Paterno" formControlName="apellidoPaterno">
+          </mat-form-field>
+
+          <mat-form-field class="flex-1 w-64" class="!block">
+            <mat-label for="idPais">País:</mat-label>
+            <mat-select formControlName="idPais">
+              <mat-option value="1">País 1</mat-option>
+              <mat-option value="2">País 2</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="flex-1 w-64" class="!block">
+            <mat-label for="idEstado">Estado:</mat-label>
+            <mat-select formControlName="idEstado">
+              <mat-option value="1">Estado 1</mat-option>
+              <mat-option value="2">Estado 2</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="flex-1 w-64" class="!block">
+            <mat-label for="idMunicipio">Municipio:</mat-label>
+            <mat-select formControlName="idMunicipio">
+              <mat-option value="1">Municipio 1</mat-option>
+              <mat-option value="2">Municipio 2</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="flex-1 w-64">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+              <input matStartDate placeholder="Start date">
+              <input matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+
+          <button mat-button type="submit">Registrarse</button>
+          <button mat-raised-button class="!m-14" (click)="voltear()">Signup</button>
+        </form>
+
+
+
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+
+
+  <!-- <div class="px-8 py-6 mx-4 mt-14 text-left bg-white shadow-lg md:w-1/3 lg:w-2/4">
+    <h3 class="text-2xl font-bold text-center">Login</h3>
+    <form action="/login" method="post" (ngSubmit)="crear()" [formGroup]="Formulario">
+      <div class="mt-4">
+        <label class="form-control" for="email" class="block mb-2 text-sm font-medium text-gray-700">Email address</label>
+        <input type="email" formControlName="email" id="email" name="email" class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+      </div>
+      <div class="mt-4 mb-4">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+        <input type="password"  formControlName="password" id="password" name="password" class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+      </div>
+      <re-captcha data-theme="dark" (resolved)="resolved($event)" siteKey="6LcEbY8oAAAAAPLov2dRfdBSy5c1rN5ryGH7K9RX"></re-captcha>
+      <div class="flex items-center justify-between mt-4">
+        <button type="submit" (click)="Enviar()" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-500">Login</button>
+        <a href="https://www.youtube.com/watch?v=GBIIQ0kP15E" class="text-sm text-blue-500 hover:underline">Forgot password?</a>
+      </div>
+    </form>
+
+    <div class="mx-auto">
+    </div>
+    <div class="mt-4 text-center">
+      <p>Don't have an account? <a href="/signup" class="text-blue-500 hover:underline" (click)="reenviar('signup')">Sign up</a></p>
+    </div>
+
+  </div> -->
+
+
+
+  <!-- <div class="container-fluid py-3">
+    <h1>Angular reCAPTCHA v3</h1>
+
+    <form #form="ngForm">
+      <div class="row mt-3">
+        <div class="col-sm-12 mb-2">
+          <button type="button" class="btn btn-sm btn-primary" (click)="send(form)">Send</button>
+        </div>
+      </div>
+    </form> -->
+
+
+
+
+
+
+</div>
+<app-footer></app-footer>
