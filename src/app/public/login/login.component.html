@@ -4,21 +4,17 @@
 
 <div class="min-h-screen  !w-screen flex justify-center items-center !pt-36 ">
 
-
-  <!-- Subrutinas se llevan a cabo cuando se evalue el patron  -->
-
-
   <div class="flip-card !w-2/3">
     <div class="flip-card-inner" [ngClass]="frente ? 'vuelta' : ''">
 
       <div class="flip-card-front" class="bg-yellow-200 rounded">
 
+        <!-- Form de login (Amarillo) -->
 
         <h1 class="ml-[calc(85%/2)] font-thin" *ngIf="!frente">Login</h1>
-        <hr *ngIf="!frente" class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" style="size: 10px;">
+        <hr *ngIf="!frente" class="h-px my-8 bg-gray-700 border-0 dark:bg-gray-700" style="size: 10px;">
 
-        <form action="" method="post" (ngSubmit)="Enviar()" class="!mb-40 mx-20" [formGroup]="FormularioLogin"
-          *ngIf="!frente">
+        <form action="" (ngSubmit)="Enviar_login()" class="!mb-40 mx-20" [formGroup]="FormularioLogin" *ngIf="!frente">
 
 
           <mat-form-field class="!block">
@@ -28,10 +24,10 @@
 
           <mat-form-field class="!block">
             <mat-label>Ingrese su contraseña</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput [type]="hide_password ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide_password = !hide_password"
+              [attr.aria-label]="'hide_password password'" [attr.aria-pressed]="hide_password">
+              <mat-icon>{{hide_password ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
 
@@ -41,90 +37,139 @@
 
 
           <button mat-button type="submit">Login</button>
-          <button mat-raised-button class="!m-10" (click)="voltear()">Signup</button>
+          <button mat-raised-button class="!m-10" (click)="voltearTarjeta()">Signup</button>
         </form>
 
       </div>
 
-<!-- copilacion, interpretacion diferencias ventajas
-solo centrarse en las fases despues de la compilacion
-que es el analizador lexico etc
-
-
-que es flex como herramienta y las definiciones del archivo sus partes de definicion reglas y codigo de usuariuo como definir patrones como definir reglas acciones elementos
-y codigo de usuario o el codigo main
-
-
--->
 
 
 
 
-      <div class="flip-card-back !bg-sky-400">
 
-        <form (ngSubmit)="signUp()" [formGroup]="FormularioRegistro" *ngIf="frente" class="flex flex-wrap gap-10 max-h-10">
+      <div class="flip-card-back !bg-sky-200">
 
-          <mat-form-field class="flex-1 w-64" class="!block">
+
+
+        <!-- Form del signup (Azul) -->
+        
+
+
+
+        <form (ngSubmit)="Enviar_signUp()" [formGroup]="FormularioRegistro" *ngIf="frente"
+          class="flex flex-wrap gap-10 max-h-10">
+
+          <mat-form-field class="!block">
             <mat-label for="nombre">Nombre: </mat-label>
-            <input matInput placeholder="Nombre" formControlName="nombre" formControlName="nombre">
-          </mat-form-field>
-
-
-          <mat-form-field class="flex-1 w-64" class="!block">
-            <mat-label for="nombre">Usuario: </mat-label>
             <input matInput placeholder="Nombre" formControlName="nombre">
           </mat-form-field>
 
-          <mat-form-field class="flex-1 w-64" class="!block">
-            <mat-label for="apellidoPaterno">Apellido Paterno:</mat-label>
-            <input matInput placeholder="Apellido Paterno" formControlName="apellidoPaterno">
+
+
+
+          <mat-form-field class="!block">
+            <mat-label for="apellido_paterno">Apellido paterno:</mat-label>
+            <input matInput placeholder="Apellido Paterno" formControlName="apellido_paterno">
           </mat-form-field>
 
-          <mat-form-field class="flex-1 w-64" class="!block">
-            <mat-label for="apellidoPaterno">Apellido Paterno:</mat-label>
-            <input matInput placeholder="Apellido Paterno" formControlName="apellidoPaterno">
+          <mat-form-field class="!block">
+            <mat-label for="apellido_materno">Apellido materno:</mat-label>
+            <input matInput placeholder="Apellido Materno" formControlName="apellido_materno">
           </mat-form-field>
 
-          <mat-form-field class="flex-1 w-64" class="!block">
-            <mat-label for="idPais">País:</mat-label>
-            <mat-select formControlName="idPais">
-              <mat-option value="1">País 1</mat-option>
-              <mat-option value="2">País 2</mat-option>
+          <mat-form-field class="!block">
+            <mat-label for="nombre">Usuario: </mat-label>
+            <input matInput placeholder="Usuario" formControlName="usuario">
+          </mat-form-field>
 
+
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="correo" placeholder="ej: correo@gmail.com">
+            <mat-error *ngIf="FormularioRegistro.hasError('correo') && !FormularioRegistro.hasError('required')">
+              Por favor ingrese un correo valido
+            </mat-error>
+            <mat-error *ngIf="FormularioRegistro.hasError('required')">
+              El correo es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Telefono</mat-label>
+              <span matPrefix>+1 &nbsp;</span>
+              <input type="tel" matInput placeholder="555-555-555" formControlName="telefono">
+              <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+
+
+            <mat-form-field>
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+          <mat-form-field class="!block">
+            <mat-label>Ingrese su contraseña</mat-label>
+            <input matInput [type]="hide_password ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide_password = !hide_password"
+              [attr.aria-label]="'hide_password password'" [attr.aria-pressed]="hide_password">
+              <mat-icon>{{hide_password ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field class="!block">
+            <mat-label for="id_pais">País:</mat-label>
+            <mat-select formControlName="id_pais">
+              <mat-option value="1">Pais 1</mat-option>
+              <mat-option value="2">Pais 2</mat-option>
+              <mat-option value="3">Pais 3</mat-option>
+              <mat-option value="4">Pais 4</mat-option>
+              <mat-option value="5">Pais 5</mat-option>
+              <mat-option value="6">Pais 6</mat-option>
+              <mat-option value="7">Pais 7</mat-option>
+              <mat-option value="8">Pais 8</mat-option>
+              <mat-option value="9">Pais 9</mat-option>
+              <mat-option value="10">Pais 10</mat-option>
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="flex-1 w-64" class="!block">
-            <mat-label for="idEstado">Estado:</mat-label>
-            <mat-select formControlName="idEstado">
+          <mat-form-field class="!block">
+            <mat-label for="id_estado">Estado:</mat-label>
+            <mat-select formControlName="id_estado">
               <mat-option value="1">Estado 1</mat-option>
               <mat-option value="2">Estado 2</mat-option>
-
+              <mat-option value="3">Estado 3</mat-option>
+              <mat-option value="4">Estado 4</mat-option>
+              <mat-option value="5">Estado 5</mat-option>
+              <mat-option value="6">Estado 6</mat-option>
+              <mat-option value="7">Estado 7</mat-option>
+              <mat-option value="8">Estado 8</mat-option>
+              <mat-option value="9">Estado 9</mat-option>
+              <mat-option value="10">Estado 10</mat-option>
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="flex-1 w-64" class="!block">
-            <mat-label for="idMunicipio">Municipio:</mat-label>
-            <mat-select formControlName="idMunicipio">
-              <mat-option value="1">Municipio 1</mat-option>
-              <mat-option value="2">Municipio 2</mat-option>
+          <mat-form-field class="!block">
+            <mat-label for="id_municipio">Municipio:</mat-label>
+            <mat-select formControlName="id_municipio">
+              <mat-option value="1">Muncipio 1</mat-option>
+              <mat-option value="2">Muncipio 2</mat-option>
+              <mat-option value="3">Muncipio 3</mat-option>
+              <mat-option value="4">Muncipio 4</mat-option>
+              <mat-option value="5">Muncipio 5</mat-option>
+              <mat-option value="6">Muncipio 6</mat-option>
+              <mat-option value="7">Muncipio 7</mat-option>
+              <mat-option value="8">Muncipio 8</mat-option>
+              <mat-option value="9">Muncipio 9</mat-option>
+              <mat-option value="10">Muncipio 10</mat-option>
 
             </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class="flex-1 w-64">
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-              <input matStartDate placeholder="Start date">
-              <input matEndDate placeholder="End date">
-            </mat-date-range-input>
-            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
           </mat-form-field>
 
           <button mat-button type="submit">Registrarse</button>
-          <button mat-raised-button class="!m-14" (click)="voltear()">Signup</button>
+          <button mat-raised-button class="" (click)="voltearTarjeta()">Login</button>
         </form>
 
 

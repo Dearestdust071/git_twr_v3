@@ -6,7 +6,7 @@
 <!-- Video fondo -->
 
 
-<video autoplay loop [muted]="true" plays-inline class="relative w-screen z-[-1] snap-start" id="section1" #perro>
+<video autoplay loop [muted]="true" plays-inline class="relative w-screen z-[-1]" id="section1" #perro>
   <source src="../../assets/public/Video_landing.mp4" type="video/mp4">
 </video>
 
@@ -46,20 +46,11 @@
 
 
 
-
-
-
-
-
-
-
-
-  <div class="bg-white !w-screen !h-screen relative z-10 py-44 px-20 flex flex-wrap gap-9 justify-center align-middle ">
-
-    <mat-tab-group>
-      <mat-tab *ngFor="let habitacion of habitaciones" label="{{habitacion.nombre}}">
-        <app-cards-habitaciones [habitaciones]="habitacion"></app-cards-habitaciones>
-      </mat-tab>
+  <div class="bg-white !w-screen !h-screen p-40" id="identificadorpro">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" headerPosition="below">
+      <mat-tab label="Habitación delujin"><app-cards-habitaciones [habitaciones]="habi0"></app-cards-habitaciones></mat-tab>
+      <mat-tab label="Habitación delujon"><app-cards-habitaciones [habitaciones]="habi1"></app-cards-habitaciones></mat-tab>
+      <mat-tab label="Habitacion delujisima"><app-cards-habitaciones [habitaciones]="habi2"></app-cards-habitaciones></mat-tab>
     </mat-tab-group>
 
 
@@ -67,6 +58,6 @@
 
 
 
-<app-footer></app-footer>
+<app-footer ></app-footer>
 </body>
 

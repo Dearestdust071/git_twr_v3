@@ -17,9 +17,9 @@
 
 
 
-      <div class="bg-black shadow-md rounded-lg overflow-hidden h-full w-2/3">
+      <div class=" shadow-md rounded-lg !w-full !inline-block" [ngClass]="{'!bg-green-500': habitaciones.nombre == 'Habitacion super duper wuhu' , '!bg-red-800': habitaciones.nombre == 'Habitacion delujoso', '!bg-amber-200' : habitaciones.nombre == 'Habitacion delujisidad'}">
         <!-- Imagen de la habitación -->
-        <img src="../../../assets/public/fotoHabitacionHotel.jpeg" alt="Habitación 1" class="w-full h-48 object-cover">
+        <img src="../../../assets/public/fotoHabitacionHotel.jpeg" alt="Habitación 1" class="w-full h-80 object-cover">
 
         <div class="p-4">
           <!-- Nombre de la habitación -->

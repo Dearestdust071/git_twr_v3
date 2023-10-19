@@ -15,4 +15,6 @@ export class CardsHabitacionesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  prueba = "aaa"
+
 }
