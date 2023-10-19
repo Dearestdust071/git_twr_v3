@@ -23,11 +23,15 @@ export class HeaderComponent implements OnInit {
 
   @Input() scroll:any;
 
-  accessData: any =JSON.parse(localStorage.getItem('dataUser') ?? '{}')?.nombre ?? '';
+  //accessData: any =JSON.parse(localStorage.getItem('dataUser') ?? '{}')?.nombre ?? '';
 
-  links = ['landing', 'habitaciones', 'landing', 'landing', 'Login', 'landing'];
-  titles = ['Home', 'Habitaciones', 'Servicios', 'Contacto', 'Login', this.accessData];
+  links = ['landing', 'habitaciones', 'landing', 'landing', 'Login'];
+  titles = ['Home', 'Habitaciones', 'Servicios', 'Contacto', 'Login'];
   activeLink = this.links[0];
   // myColor = 'primary';
 
+  get accessData() {
+    return JSON.parse(localStorage.getItem('dataUser') ?? '{}')?.nombre ?? '';
+
+  }
 }

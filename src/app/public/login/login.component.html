@@ -12,19 +12,18 @@
         <!-- Form de login (Amarillo) -->
 
         <h1 class="ml-[calc(85%/2)] font-thin" *ngIf="!frente">Login</h1>
-        <hr *ngIf="!frente" class="h-px my-8 bg-gray-700 border-0 dark:bg-gray-700" style="size: 10px;">
+        <hr *ngIf="!frente" class="h-20  my-40 bg-gray-700 dark:bg-gray-700" style="size: 10px;">
 
         <form action="" (ngSubmit)="Enviar_login()" class="!mb-40 mx-20" [formGroup]="FormularioLogin" *ngIf="!frente">
 
-
           <mat-form-field class="!block">
             <mat-label for="Email">Correo electronico</mat-label>
-            <input matInput placeholder="email" class="'m-4" formControlName="email">
+            <input matInput placeholder="email" value="dearestdust071@gmail.com" class="'m-4" formControlName="email">
           </mat-form-field>
 
           <mat-form-field class="!block">
             <mat-label>Ingrese su contraseña</mat-label>
-            <input matInput [type]="hide_password ? 'password' : 'text'" formControlName="password">
+            <input value="qwerty12345" matInput [type]="hide_password ? 'password' : 'text'" formControlName="password">
             <button mat-icon-button matSuffix (click)="hide_password = !hide_password"
               [attr.aria-label]="'hide_password password'" [attr.aria-pressed]="hide_password">
               <mat-icon>{{hide_password ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -52,7 +51,7 @@
 
 
         <!-- Form del signup (Azul) -->
-        
+
 
 
 

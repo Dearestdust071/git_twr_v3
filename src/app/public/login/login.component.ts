@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   hide_password = true;
   captchaResponseV2 = ""
-  frente = true;
+  frente = false;
 
   voltearTarjeta() {
     this.frente = !this.frente;
@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
 
 
   FormularioLogin: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    email: ['dearestdust071@gmail.com', [Validators.required, Validators.email]],
+    password: ['qwerty12345', [Validators.required, Validators.minLength(6)]],
   });
 
 
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]],
     /*  acceso: ['', Validators.required], */ /* Que liz me diga cuales son los enums  ? si es que los meto yo desde aqui*/
     /* status: ['', Validators.required], */ /* Que liz me diga cuales son los enums   ? si es que los meto yo desde aqui*/
-    id_pais: [1], 
+    id_pais: [1],
     id_estado: [1],
     id_municipio: [1],
   });
@@ -98,16 +98,16 @@ export class LoginComponent implements OnInit {
       alert("Se ingreso con exito!")
 
 
-    // this.conexion.Post('login', 'Login', this.FormularioLogin.value).subscribe((dato:any) => {
-    //   console.log("Se consigio la entrada del form de la base de datos" + dato);
+    this.conexion.Post('login', 'Login', this.FormularioLogin.value).subscribe((dato:any) => {
+      console.log("Se consigio la entrada del form de la base de datos" + dato);
 
-    //   console.log(dato);
-    //   if(dato.status){
-    //     // localStorage.setItem('token', dato._kmd.authtoken);
-    //     localStorage.setItem('dataUser', JSON.stringify(dato));
-    //   }
-    
-    /* 
+      console.log(dato);
+      if(dato.status){
+        // localStorage.setItem('token', dato._kmd.authtoken);
+        localStorage.setItem('dataUser', JSON.stringify(dato));
+      }
+    })
+    /*
     public sendEmail(e: Event) {
     e.preventDefault();
     emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target as HTMLFormElement, 'YOUR_PUBLIC_KEY')
@@ -132,6 +132,8 @@ export class LoginComponent implements OnInit {
     console.log("El registro se llevo a cabo exitosamente");
     console.log(this.FormularioRegistro.value);
 
+    //alert('Se ha registrado exitosamente (cheque su correo)')
+    this.router.navigate(["landing"]);
 
     emailjs.init("CTOgcb2g19CWdWfzG");
     emailjs.send("service_m5n33rg","template_7ihaxen",{

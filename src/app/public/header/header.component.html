@@ -22,6 +22,9 @@
     <a   mat-tab-link *ngFor="let link of links; index as i" [href]="link" (click)="activeLink = link"
         [@tabAnimation]> {{titles[i]}}
     </a>
+    <a   mat-tab-link href="/landing"
+        [@tabAnimation]> {{accessData}}
+    </a>
   </nav>
 
   <mat-tab-nav-panel></mat-tab-nav-panel>
