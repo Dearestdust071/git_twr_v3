@@ -18,7 +18,7 @@ export class HabitacionesComponent implements OnInit {
   habitacionForm: FormGroup;
   constructor(private fb: FormBuilder) {
     this.habitacionForm = this.fb.group({
-      id: [null],
+      // id: [null],
       nombre: ['',[Validators.required]],
       capacidad: [1, [Validators.required, Validators.min(1)]],
       extensionTelefonica: ['',[Validators.required]],
@@ -28,13 +28,24 @@ export class HabitacionesComponent implements OnInit {
       ocupada: [false],
       descripcion: ['', [Validators.required]],
       imagenes: [''],
-      inventario: this.fb.array([]),
+      inventario: [''],
       servicios: ['',[Validators.required]],
     });
   }
   guardarHabitacion() {
+
+    if(this.habitacionForm.invalid){
+      console.log("Es invalido el formulario llenalo todo");
+      return
+    }
+
     const formData = this.habitacionForm.value;
     console.log(formData);
+
+
+
+
+
   }
 
   onFileChange(event: Event) {

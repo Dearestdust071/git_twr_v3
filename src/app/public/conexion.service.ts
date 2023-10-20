@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConexionService {
-  baseUrl = 'http://localhost/webservicepw/controller/';
+  // baseUrl = 'http://localhost/webservicepw/controller/';
+  baseUrl = 'http://localhost/ws_hotel/controller/';
   public httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
@@ -33,6 +34,4 @@ export class ConexionService {
 
     return this.http.delete(`${this.baseUrl}${Modelo}.php?opcion=${Accion}` , options);
   }
-
-
 }

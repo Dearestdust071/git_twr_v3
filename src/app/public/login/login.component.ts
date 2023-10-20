@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     nombre: ['', Validators.required],
     apellido_paterno: ['', Validators.required],
     apellido_materno: ['', Validators.required],
-    fecha_nacimiento: ['', Validators.required], /* var fechaSQL = '2023-10-18'; */
+    fecha_nacimiento: ['2023-10-18', Validators.required], /* var fechaSQL = '2023-10-18'; */
     usuario: ['', Validators.required],
     correo: ['', [Validators.required, Validators.email]],
     telefono: ['', [Validators.required]],
@@ -141,6 +141,13 @@ export class LoginComponent implements OnInit {
       para: this.FormularioRegistro.value.correo,
       });
 
+
+
+      this.conexion.Post('registro', 'Registro', this.FormularioRegistro.value).subscribe((dato:any) => {
+        console.log("Se consigio la entrada del form de la base de datos" + dato);
+        console.log(dato);
+
+      })
   }
 
 }
