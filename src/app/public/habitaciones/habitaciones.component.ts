@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
- import { trigger, state, style, animate, transition } from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { HabitacionesService } from './habitaciones.service';
 @Component({
   selector: 'app-habitaciones',
   templateUrl: './habitaciones.component.html',
@@ -16,63 +17,58 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 export class HabitacionesComponent implements OnInit {
 
   habitacionForm: FormGroup;
-  constructor(private fb: FormBuilder) {
+  serviciosDisponibles: any[] = [];
+  inventarioDisponible: any[] = [];
+  constructor(private fb: FormBuilder, private habitacionesService: HabitacionesService) {
     this.habitacionForm = this.fb.group({
       // id: [null],
-      nombre: ['',[Validators.required]],
+      nombre: ['', [Validators.required]],
       capacidad: [1, [Validators.required, Validators.min(1)]],
-      extensionTelefonica: ['',[Validators.required]],
-      camas: ['',[Validators.required]],
+      extensionTelefonica: ['', [Validators.required]],
+      camas: ['', [Validators.required]],
       tipo: ['', Validators.required],
       costo: [0, [Validators.required, Validators.min(0)]],
-      ocupada: [false],
+      ocupada: [false, [Validators.required]],
       descripcion: ['', [Validators.required]],
       imagenes: [''],
-      inventario: [''],
-      servicios: ['',[Validators.required]],
+      inventario: this.fb.array([]),
+      servicios: this.fb.array([])
     });
   }
   guardarHabitacion() {
-
-    if(this.habitacionForm.invalid){
-      console.log("Es invalido el formulario llenalo todo");
-      return
+    if (this.habitacionForm.invalid) {
+      console.log("El formulario es inválido. Completa todos los campos.");
+      return;
     }
 
     const formData = this.habitacionForm.value;
     console.log(formData);
-
-
-
-
-
   }
 
-  onFileChange(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      const file = inputElement.files[0];
-      const imagenesControl = this.habitacionForm.get('imagenes');
-      if (imagenesControl) {
-        // Asumiendo que tienes un elemento HTML para mostrar la imagen con el ID "imagenPreview".
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          document.getElementById('imagenPreview')?.setAttribute('src', e.target.result);
-          imagenesControl.setValue(file.name || e.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    }
+  ngOnInit(): void {
+    this.habitacionesService.getServicios().subscribe((servicios) => {
+      this.serviciosDisponibles = servicios;
+    });
+
+    this.habitacionesService.getInventario().subscribe((inventario) => {
+      this.inventarioDisponible = inventario;
+    });
+  }
+
+  get servicios() {
+    return this.habitacionForm.get('servicios') as FormArray;
+  }
+
+  get inventario() {
+    return this.habitacionForm.get('inventario') as FormArray;
+  }
+
+  agregarServicio() {
+    this.servicios.push(this.fb.control('', Validators.required));
   }
 
   agregarInventario() {
-    const inventarioArray = this.habitacionForm.get('inventario') as FormArray;
-    inventarioArray.push(this.fb.group({
-      nombre: [''],
-      cantidad: [0],
-    }));
-  }
-  ngOnInit(): void {
+    this.inventario.push(this.fb.control('', Validators.required));
   }
 
   links = ['landing', 'habitaciones', 'landing', 'landing', 'Login'];

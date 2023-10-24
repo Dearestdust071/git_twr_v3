@@ -3,37 +3,27 @@
 <div class="relative h-screen w-screen bg-sky-950 p-32 flex flex-wrap">
 
   <form [formGroup]="habitacionForm" (ngSubmit)="guardarHabitacion()" class="parent !w-screen !h-screen">
-
     <div class="div1">
-
-
       <div class="m-4">
         <mat-form-field class="w-full">
           <mat-label for="nombre">Nombre:</mat-label>
           <input matInput type="text" id="nombre" formControlName="nombre" required>
         </mat-form-field>
       </div>
-
-
       <div class="m-4">
         <mat-form-field class="w-full">
           <mat-label for="capacidad">Capacidad:</mat-label>
           <input matInput type="number" id="capacidad" formControlName="capacidad" required>
         </mat-form-field>
       </div>
-
       <div class="m-4">
         <mat-form-field class="w-full">
           <mat-label for="camas">Camas:</mat-label>
           <input matInput type="text" id="camas" formControlName="camas" required>
         </mat-form-field>
       </div>
-
     </div>
-
-
     <div class="div2">
-
       <div class="m-4">
         <mat-form-field class="w-full">
           <mat-label for="tipo">Tipo:</mat-label>
@@ -44,28 +34,23 @@
           </mat-select>
         </mat-form-field>
       </div>
-
-
       <div class="m-4">
         <mat-form-field class="w-full">
           <mat-label for="costo">Costo por noche:</mat-label>
           <input matInput type="number" id="costo" formControlName="costo" required>
         </mat-form-field>
       </div>
-
       <div class="m-4 " class="w-full">
-        <mat-label  class="!text-zinc-50">Ocupada</mat-label>
-        <mat-checkbox  class="text-zinc-50" id="ocupada" formControlName="ocupada"></mat-checkbox>
+        <mat-label class="!text-zinc-50">Ocupada</mat-label>
+        <mat-checkbox class="text-zinc-50" id="ocupada" formControlName="ocupada" required></mat-checkbox>
       </div>
 
+      <div class="m-4">
+        <button type="submit" mat-flat-button color="primary">Guardar</button>
+      </div>
 
     </div>
-
-
-
     <div class="div3">
-
-
       <div class="m-4">
         <mat-form-field class="w-full">
           <mat-label for="extensionTelefonica">Extensión Telefónica:</mat-label>
@@ -73,66 +58,48 @@
         </mat-form-field>
       </div>
       <div class="m-4">
-      <mat-form-field class="w-full">
-        <mat-label for="descripcion">Descripcion:</mat-label>
-        <input matInput type="text" id="descripcion" formControlName="descripcion" required>
-      </mat-form-field>
-    </div>
-
-
-    <div *ngIf="habitacionForm.get('servicios')" class="m-4">
-
-            <div class="mb-4">
-              <mat-form-field class="w-full">
-                <mat-label for="servicios">Servicio:</mat-label>
-                <input matInput type="text" id="servicios" formControlName="servicios" required>
-              </mat-form-field>
-            </div>
-
-    </div>
-
-
-
-
-
-    </div>
-
-
-    <div class="div4">
-
-
-
+        <mat-form-field class="w-full">
+          <mat-label for="descripcion">Descripcion:</mat-label>
+          <input matInput type="text" id="descripcion" formControlName="descripcion" required>
+        </mat-form-field>
+      </div>
 
       <div class="m-4">
-
         <div class="m-4">
           <mat-form-field class="w-full">
             <mat-label for="imagenes">Imagenes:</mat-label>
             <input matInput type="text" id="imagenes" formControlName="imagenes" required>
           </mat-form-field>
         </div>
+      </div>
 
     </div>
 
+    <div class="div4">
 
       <div class="m-4">
-        <mat-form-field class="w-full">
-          <mat-label for="inventario">inventario:</mat-label>
-          <input matInput type="text" id="inventario" formControlName="inventario" required>
-        </mat-form-field>
-
+        <button type="button" (click)="agregarInventario()" mat-flat-button color="primary">Agregar Inventario</button>
+        <div *ngFor="let item of inventario.controls; let i = index">
+          <mat-form-field class="w-full">
+            <mat-label for="inventario">inventario:</mat-label>
+            <input matInput type="text" id="inventario" [formControlName]="i" required>
+          </mat-form-field>
+        </div>
       </div>
-
 
       <div class="m-4">
-        <button type="submit" mat-flat-button color="primary">Guardar</button>
+        <button type="button" (click)="agregarServicio()" mat-flat-button color="primary">Agregar Servicio</button>
+        <div *ngFor="let item of servicios.controls; let i = index">
+          <mat-form-field class="w-full">
+            <mat-label for="servicios">Servicio:</mat-label>
+            <input matInput type="text" id="servicios" formControlName="servicios">
+          </mat-form-field>
+        </div>
       </div>
 
 
-      </div>
-
+    </div>
   </form>
-
 </div>
 
 <app-footer></app-footer>
