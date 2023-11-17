@@ -1,12 +1,117 @@
+.form {
+  background: rgba(251, 243, 255, 0.697);
+  position: relative;
+}
+
 .parent {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(6, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 20px;
-  }
+}
 
-  .div1 { grid-area: 1 / 1 / 4 / 4; }
-  .div2 { grid-area: 4 / 1 / 7 / 4; }
-  .div3 { grid-area: 1 / 4 / 4 / 7; }
-  .div4 { grid-area: 4 / 4 / 7 / 7; }
+.div1 {
+  grid-area: 1 / 1 / 4 / 4;
+}
+
+.div2 {
+  grid-area: 4 / 1 / 7 / 4;
+}
+
+.div3 {
+  grid-area: 1 / 4 / 4 / 7;
+}
+
+.div4 {
+  grid-area: 4 / 4 / 7 / 7;
+}
+
+.capacity-input input[type="number"]::-webkit-inner-spin-button,
+.capacity-input input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.capacity-input {
+  display: flex;
+  align-items: center;
+}
+
+.capacity-input button {
+  padding: 6px 12px;
+  margin: 0;
+}
+
+.cost-input input[type="number"]::-webkit-inner-spin-button,
+.cost-input input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cost-input {
+  display: flex;
+  align-items: center;
+}
+
+.cost-input button {
+  padding: 6px 12px;
+  margin: 0;
+}
+
+.custom-label {
+  color: rgba(59, 59, 72, 0.615);
+  font-size: 20px;
+}
+
+.button-container {
+  position: absolute;
+  bottom: 25px;
+  right: 30px;
+}
+
+.save{
+  translate: -295px;
+}
+
+.update {
+  translate: -135px;
+}
+
+
+.my-custom-button {
+  font-size: 22px;
+  padding: 10px 20px;
+  background-color: #f3cabede;
+  color: #000000;
+  border-radius: 20px;
+  font-family:'Lucida Sans Regular',sans-serif;
+}
+
+
+.my-custom-button:hover {
+   background-color: #24093d;
+  color: #fff;
+}
+
+.flat-button{
+  font-size: 18px;
+  padding: 10px 20px;
+  background-color: #a7ffe4de;
+  color: #000000;
+  border-radius: 20px;
+  font-family:'Lucida Sans Regular',sans-serif;
+}
+
+.flat-button:hover{
+  background-color: #55090957;
+  color: #fff;
+}
+
+.styled-textarea {
+  font-style: italic;
+  font-weight: bold;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  color: rgba(10, 10, 82, 0.842);
+}

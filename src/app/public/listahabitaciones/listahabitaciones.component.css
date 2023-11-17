@@ -1,0 +1,25 @@
+.list {
+  background: rgba(251, 243, 255, 0.697);
+  position: relative;
+}
+.tipo-junior {
+  background-color: rgb(0, 255, 221);
+}
+
+.tipo-platinum {
+  background-color: #C0C0C0;
+}
+
+.tipo-master {
+  background-color: #ff0080;
+}
+
+.habitacion-card {
+  margin: 10px;
+  width: 300px;
+}
+
+.insertar-habitacion-button {
+  text-align: center;
+  margin-top: 20px;
+}

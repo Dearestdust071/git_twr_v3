@@ -11,6 +11,8 @@ import { RecaptchaModule } from "ng-recaptcha";
 import { HabitacionesComponent } from './habitaciones/habitaciones.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { ListahabitacionesComponent } from './listahabitaciones/listahabitaciones.component';
+import { ReservasComponent } from './reservas/reservas.component';
 // import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 @NgModule({
@@ -21,8 +23,8 @@ import { FooterComponent } from './footer/footer.component';
     HabitacionesComponent,
     HeaderComponent,
     FooterComponent,
-
-
+    ListahabitacionesComponent,
+    ReservasComponent
   ],
   imports: [
     MaterialModule,
