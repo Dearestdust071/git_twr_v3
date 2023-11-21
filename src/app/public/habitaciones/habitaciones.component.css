@@ -70,7 +70,7 @@
   right: 30px;
 }
 
-.save{
+.save {
   translate: -295px;
 }
 
@@ -85,33 +85,25 @@
   background-color: #f3cabede;
   color: #000000;
   border-radius: 20px;
-  font-family:'Lucida Sans Regular',sans-serif;
+  font-family: 'Lucida Sans Regular', sans-serif;
 }
 
 
 .my-custom-button:hover {
-   background-color: #24093d;
+  background-color: #24093d;
   color: #fff;
 }
 
-.flat-button{
+.flat-button {
   font-size: 18px;
   padding: 10px 20px;
   background-color: #a7ffe4de;
   color: #000000;
   border-radius: 20px;
-  font-family:'Lucida Sans Regular',sans-serif;
+  font-family: 'Lucida Sans Regular', sans-serif;
 }
 
-.flat-button:hover{
+.flat-button:hover {
   background-color: #55090957;
   color: #fff;
-}
-
-.styled-textarea {
-  font-style: italic;
-  font-weight: bold;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 15px;
-  color: rgba(10, 10, 82, 0.842);
 }

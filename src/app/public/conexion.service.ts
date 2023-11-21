@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ConexionService {
   // baseUrl = 'http://localhost/webservicepw/controller/';
-  baseUrl = 'http://localhost/ws_hotel/controller/';
+  baseUrl = 'http://localhost/proyecto_twr_servicios/controller/';
   public httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',

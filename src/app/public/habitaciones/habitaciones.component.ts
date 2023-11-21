@@ -3,6 +3,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { HabitacionesService } from './habitaciones.service';
 import { Room } from './Room.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-habitaciones',
@@ -21,7 +22,7 @@ export class HabitacionesComponent implements OnInit {
   serviciosDisponibles: any[] = [];
   inventarioDisponible: any[] = [];
 
-  constructor(private fb: FormBuilder, private habitacionesService: HabitacionesService) {
+  constructor(private fb: FormBuilder, private habitacionesService: HabitacionesService,private router: Router) {
     this.habitacionForm = this.fb.group({
       nombre: ['', [Validators.required]],
       capacidad: [1, [Validators.required, Validators.min(1)]],
@@ -40,26 +41,29 @@ export class HabitacionesComponent implements OnInit {
   habitacionSeleccionada: boolean = false;
 
   ngOnInit(): void {
-    this.habitacionesService.getServicios().subscribe((servicios) => {
+    this.habitacionesService.getServicios().subscribe((servicios: any) => {
       this.serviciosDisponibles = servicios;
     });
 
-    this.habitacionesService.getInventario().subscribe((inventario) => {
+    this.habitacionesService.getInventario().subscribe((inventario: any) => {
       this.inventarioDisponible = inventario;
     });
   }
+
 
   guardarHabitacion() {
     if (this.habitacionForm.invalid) {
       console.log("El formulario es inválido. Completa todos los campos.");
       return;
     }
+
     const formData = this.habitacionForm.value;
-    console.log(formData);
 
     this.habitacionesService.crearHabitacion(formData).subscribe(
-      (habitacionCreada: Room) => {
-        console.log("Habitación creada:", habitacionCreada);
+      (habitacionCreada: any) => {
+        const room = habitacionCreada as Room;
+        console.log("Habitación creada:", room);
+       this.router.navigate(['/habitaciones']);
       },
       (error) => {
         console.error("Error al crear la habitación:", error);
@@ -122,23 +126,11 @@ export class HabitacionesComponent implements OnInit {
     this.inventario.push(this.fb.control('', Validators.required));
   }
 
-  crearHabitacion() {
-    this.habitacionSeleccionada = true;
-    if (this.habitacionForm.invalid) {
-      console.log("El formulario es inválido. Completa todos los campos.");
-      return;
-    }
-
-    const formData = this.habitacionForm.value;
-
-    this.habitacionesService.crearHabitacion(formData).subscribe(
-      (nuevaHabitacion) => {
-        console.log("Habitación creada:", nuevaHabitacion);
-      },
-      (error) => {
-        console.error("Error al crear la habitación:", error);
-      }
-    );
+  inventarios(){
+    return this.habitacionForm.controls['inventario'] as FormArray;
+  }
+  servicio(){
+    return this.habitacionForm.controls['servicios'] as FormArray;
   }
 
   actualizarHabitacion() {
@@ -151,8 +143,10 @@ export class HabitacionesComponent implements OnInit {
     const habitacionId = this.habitacionForm.get('id')?.value;
 
     this.habitacionesService.actualizarHabitacion(habitacionId, formData).subscribe(
-      (habitacionActualizada: Room) => {
-        console.log("Habitación actualizada:", habitacionActualizada);
+      (habitacionActualizada: any) => {
+        const room = habitacionActualizada as Room;
+        console.log("Habitación actualizada:", room);
+        this.router.navigate(['/habitaciones']);
       },
       (error) => {
         console.error("Error al actualizar la habitación:", error);

@@ -1,39 +1,39 @@
 <app-header></app-header>
 
-<form class="w-full max-w-lg mx-auto form">
-  <div class="mb-6">
-    <label class="block mb-2" for="fechaInicio">Fecha de inicio:</label>
-    <div class="relative">
-      <input class="block w-full appearance-none border border-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-blue-500" type="text" placeholder="Fecha de inicio" name="fechaInicio" required>
-      <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-          <path d="M12 7V2a2 2 0 0 0-4 0v5H2a2 2 0 0 0 0 4h6v5a2 2 0 0 0 4 0v-5h6a2 2 0 0 0 0-4h-6z" />
-        </svg>
+<div class="list mt-8">
+  <form class="w-full max-w-lg mx-auto grid grid-cols-2 gap-4">
+    <div class="col-span-1">
+      <div class="mb-6">
+        <label class="block mb-2">Fecha de inicio:</label>
+        <mat-form-field appearance="fill">
+          <input matInput [matDatepicker]="picker1" placeholder="Fecha de inicio" required>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="mb-6">
+        <label class="block mb-2">Fecha de fin:</label>
+        <mat-form-field appearance="fill">
+          <input matInput [matDatepicker]="picker2" placeholder="Fecha de fin" required>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
       </div>
     </div>
-  </div>
-
-  <div class="mb-6">
-    <label class="block mb-2" for="fechaFin">Fecha de fin:</label>
-    <div class="relative">
-      <input class="block w-full appearance-none border border-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-blue-500" type="text" placeholder="Fecha de fin" name="fechaFin" required>
-      <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-          <path d="M12 7V2a2 2 0 0 0-4 0v5H2a2 2 0 0 0 0 4h6v5a2 2 0 0 0 4 0v-5h6a2 2 0 0 0 0-4h-6z" />
-        </svg>
+    <div class="col-span-1">
+      <div class="mb-4">
+        <label class="block mb-2" for="subtotal">Subtotal:</label>
+        <input
+          class="block w-full appearance-none border border-gray-300 py-2 px-4 rounded leading-tight focus:outline-none focus:border-blue-500"
+          type="text" placeholder="Subtotal" id="subtotal" name="subtotal" readonly>
+      </div>
+      <div class="text-center">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit">Pagar</button>
       </div>
     </div>
-  </div>
-
-  <div class="mb-6">
-    <label class="block mb-2" for="subtotal">Subtotal:</label>
-    <input class="block w-full appearance-none border border-gray-300 py-2 px-4 rounded leading-tight focus:outline-none focus:border-blue-500" type="text" placeholder="Subtotal" id="subtotal" name="subtotal" readonly>
-  </div>
-
-  <div class="text-center">
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Hacer Reserva</button>
-  </div>
-
-</form>
+  </form>
+</div>
 
 <app-footer></app-footer>

@@ -1,41 +1,41 @@
 <app-header></app-header>
 <div class="list">
-<div *ngIf="habitaciones.length === 0" class="flex justify-center items-center h-96">
-  <p class="text-center text-gray-500">No hay habitaciones disponibles.
-    <a class="text-blue-500 hover:underline" (click)="irAFormulario()">Agregue una habitación</a>.
-  </p>
-</div>
-
-<div class="container mx-auto mt-10 mb-20">
-
-  <div class="grid-container" *ngIf="habitaciones.length > 0">
-
-    <mat-grid-list cols="3" gutterSize="20px" class="p-10">
-      <mat-grid-tile *ngFor="let habitacion of habitaciones">
-        <mat-card class="habitacion-card bg-white shadow-lg rounded-lg">
-
-          <img mat-card-image [src]="habitacion.imagenes" alt="Imagen de la habitación">
-          <mat-card-content>
-            <h2>{{ habitacion.nombre }}</h2>
-            <p>Tipo: <span [ngClass]="tipoColor(habitacion.tipo)">{{ habitacion.tipo }}</span></p>
-            <p>Costo por noche: $  {{ habitacion.costo }}</p>
-            <p>Detalles: {{ habitacion.descripcion }}</p>
-            <p>Servicios: {{ habitacion.servicios.join(', ') }}</p>
-            <p>Inventario: {{ habitacion.inventario.join(', ') }}</p>
-            <p>Estado: {{ habitacion.ocupada ? 'Ocupada' : 'Disponible' }}</p>
-          </mat-card-content>
-          <mat-card-actions class="flex justify-between">
-            <button mat-button color="primary" (click)="reservarHabitacion(habitacion)">Reservar</button>
-          </mat-card-actions>
-
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-
+  <div *ngIf="!habitaciones || habitaciones.length === 0" class="flex justify-center items-center h-96">
+    <p class="text-center text-gray-500">No hay habitaciones disponibles.
+      <a class="text-blue-500 hover:underline" (click)="irAFormulario()">Agregue una habitación</a>.
+    </p>
   </div>
 
-</div>
+  <div class="container mx-auto mt-10 mb-20">
+    <div class="grid-container" *ngIf="habitaciones && habitaciones.length > 0">
+
+      <mat-grid-list cols="3" gutterSize="20px" class="p-10">
+        <mat-grid-tile *ngFor="let habitacion of habitaciones">
+          <mat-card class="habitacion-card bg-white shadow-lg rounded-lg">
+
+            <img mat-card-image [src]="habitacion.imagenes" alt="Imagen de la habitación">
+            <mat-card-content>
+              <h2>{{ habitacion.nombre }}</h2>
+              <p>Tipo: <span [ngClass]="tipoColor(habitacion.tipo)">{{ habitacion.tipo }}</span></p>
+              <p>Costo por noche: $ {{ habitacion.costo }}</p>
+              <p>Detalles: {{ habitacion.descripcion }}</p>
+              <p>Servicios: {{ habitacion.servicios.join(', ') }}</p>
+              <p>Inventario: {{ habitacion.inventario.join(', ') }}</p>
+              <p>Estado: {{ habitacion.ocupada ? 'Ocupada' : 'Disponible' }}</p>
+            </mat-card-content>
+            <mat-card-actions class="flex justify-between">
+              <button mat-button type="button" class="my-custom-button"
+                (click)="reservarHabitacion(habitacion)">Reservar</button>
+            </mat-card-actions>
+
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div class="button-container update absolute bottom-25 right-30 translate-x-135">
+        <button mat-button type="button" class="my-custom-button" (click)="irAFormulario()">Crear Hbaitacion</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <app-footer></app-footer>
-

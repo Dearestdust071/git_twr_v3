@@ -41,8 +41,8 @@ export class ListahabitacionesComponent implements OnInit{
 
   obtenerHabitacion() {
     this.habitacionesService.getHabitaciones().subscribe(
-      (habitaciones: Room[]) => {
-        this.habitaciones = habitaciones;
+      (habitaciones: Room[] | any) => {
+        this.habitaciones = habitaciones as Room[];
       },
       (error: any) => {
         console.error('Error al obtener las habitaciones', error);
@@ -53,7 +53,7 @@ export class ListahabitacionesComponent implements OnInit{
 
 
    reservarHabitacion(habitacion: Room) {
-    //this.router.navigate(['/ruta-detalle-habitacion', habitacion.id]);
+    this.router.navigate(['/reservas', habitacion.id]);
    }
 
   irAFormulario() {

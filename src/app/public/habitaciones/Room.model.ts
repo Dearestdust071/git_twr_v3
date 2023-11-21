@@ -12,4 +12,3 @@ export interface Room {
   inventario: string[];
   servicios: string[];
 }
-

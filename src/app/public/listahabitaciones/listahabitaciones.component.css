@@ -2,6 +2,7 @@
   background: rgba(251, 243, 255, 0.697);
   position: relative;
 }
+
 .tipo-junior {
   background-color: rgb(0, 255, 221);
 }
@@ -23,3 +24,32 @@
   text-align: center;
   margin-top: 20px;
 }
+
+.my-custom-button {
+  font-size: 22px;
+  padding: 10px 20px;
+  background-color: #f3cabede;
+  color: #000000;
+  border-radius: 20px;
+  font-family: 'Lucida Sans Regular', sans-serif;
+}
+
+
+.my-custom-button:hover {
+  background-color: #24093d;
+  color: #fff;
+}
+
+/* .flat-button {
+  font-size: 18px;
+  padding: 10px 20px;
+  background-color: #a7ffe4de;
+  color: #000000;
+  border-radius: 20px;
+  font-family: 'Lucida Sans Regular', sans-serif;
+}
+
+.flat-button:hover {
+  background-color: #55090957;
+  color: #fff;
+} */
