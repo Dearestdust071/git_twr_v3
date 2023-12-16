@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { HabitacionesService } from './habitaciones.service';
 import { Room } from './Room.model';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-habitaciones',
@@ -18,29 +20,63 @@ import { Router } from '@angular/router';
   ],
 })
 export class HabitacionesComponent implements OnInit {
-  habitacionForm: FormGroup;
+  public habitacionForm: FormGroup;
   serviciosDisponibles: any[] = [];
+  habitacionesDisponibles: any[] = [];
   inventarioDisponible: any[] = [];
+  public Editor: any;
 
-  constructor(private fb: FormBuilder, private habitacionesService: HabitacionesService,private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private habitacionesService: HabitacionesService,
+    private router: Router) {
+    this.Editor = ClassicEditor;
     this.habitacionForm = this.fb.group({
       nombre: ['', [Validators.required]],
       capacidad: [1, [Validators.required, Validators.min(1)]],
       extensionTelefonica: ['', [Validators.required]],
       camas: ['', [Validators.required]],
       tipo: ['', Validators.required],
-      costo: [100, [Validators.required, Validators.min(100)]],
-      ocupada: [false, [Validators.required]],
-      descripcion: ['', [Validators.required]],
+      total: [100, [Validators.required, Validators.min(100)]],
+      descripcion: [new FormControl(''), [Validators.required]],
       imagenes: [''],
       inventario: this.fb.array([]),
       servicios: this.fb.array([])
     });
   }
 
-  habitacionSeleccionada: boolean = false;
-
   ngOnInit(): void {
+    this.cargarDatosIniciales();
+    this.Editor
+      .create(document.querySelector('#editor'), this.editorConfig)
+      .then((editor: any) => {
+        this.Editor = editor;
+      })
+      .catch((error: any) => {
+        console.error(error);
+      });
+  };
+
+
+  onEditorChange(event: any) {
+    this.habitacionForm.get('descripcion')?.setValue(event.editor.getData());
+  }
+
+  public editorConfig = {
+    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'undo', 'redo'],
+  };
+
+  cargarDatosIniciales(): void {
+    this.habitacionesService.getHabitaciones().subscribe(
+      (habitaciones: Room[]) => {
+        this.habitacionesDisponibles = habitaciones;
+      },
+      (error: any) => {
+        console.error('Error al obtener las habitaciones', error);
+        alert('Error al cargar las habitaciones.');
+      }
+    );
+
     this.habitacionesService.getServicios().subscribe((servicios: any) => {
       this.serviciosDisponibles = servicios;
     });
@@ -50,8 +86,7 @@ export class HabitacionesComponent implements OnInit {
     });
   }
 
-
-  guardarHabitacion() {
+  guardarHabitacion(): void {
     if (this.habitacionForm.invalid) {
       console.log("El formulario es inválido. Completa todos los campos.");
       return;
@@ -59,11 +94,10 @@ export class HabitacionesComponent implements OnInit {
 
     const formData = this.habitacionForm.value;
 
-    this.habitacionesService.crearHabitacion(formData).subscribe(
-      (habitacionCreada: any) => {
-        const room = habitacionCreada as Room;
-        console.log("Habitación creada:", room);
-       this.router.navigate(['/habitaciones']);
+    this.habitacionesService.createHabitacion(formData).subscribe(
+      (habitacionCreada: Room) => {
+        console.log("Habitación creada:", habitacionCreada);
+        this.router.navigate(['/habitaciones']);
       },
       (error) => {
         console.error("Error al crear la habitación:", error);
@@ -71,7 +105,62 @@ export class HabitacionesComponent implements OnInit {
     );
   }
 
+  get servicios() {
+    return this.habitacionForm.get('servicios') as FormArray;
+  }
 
+  get inventario() {
+    return this.habitacionForm.get('inventario') as FormArray;
+  }
+
+  agregarServicio() {
+    this.servicios.push(this.fb.control('', Validators.required));
+  }
+
+  agregarInventario() {
+    this.inventario.push(this.fb.control('', Validators.required));
+  }
+
+  inventarios() {
+    return this.habitacionForm.controls['inventario'] as FormArray;
+  }
+  servicio() {
+    return this.habitacionForm.controls['servicios'] as FormArray;
+  }
+
+  actualizarHabitacion() {
+    if (this.habitacionForm.invalid) {
+      console.log("El formulario es inválido. Completa todos los campos.");
+      return;
+    }
+
+    const formData = this.habitacionForm.value;
+    const habitacionId = this.habitacionForm.get('id')?.value;
+
+    this.habitacionesService.updateHabitacion(habitacionId, formData).subscribe(
+      (habitacionActualizada: any) => {
+        console.log("Habitación actualizada:", habitacionActualizada);
+        this.router.navigate(['/habitaciones']);
+      },
+      (error) => {
+        console.error("Error al actualizar la habitación:", error);
+      }
+    );
+  }
+
+  eliminarHabitacion() {
+    const habitacionId = this.habitacionForm.get('id')?.value;
+
+    this.habitacionesService.deleteHabitacion(habitacionId).subscribe(
+      () => {
+        console.log("Habitación eliminada correctamente");
+        this.router.navigate(['/habitaciones']);
+      },
+      (error) => {
+        console.error("Error al eliminar la habitación:", error);
+      }
+    );
+  }
 
   decrementarCapacidad() {
     const capacidadControl = this.habitacionForm.get('capacidad');
@@ -92,89 +181,23 @@ export class HabitacionesComponent implements OnInit {
   }
 
   decrementarCosto() {
-    const costoControl = this.habitacionForm.get('costo');
-    if (costoControl) {
-      const costo = costoControl.value;
-      if (costo > 1) {
-        costoControl.setValue(costo - 1);
+    const totalControl = this.habitacionForm.get('total');
+    if (totalControl) {
+      const total = totalControl.value;
+      if (total > 1) {
+        totalControl.setValue(total - 50);
       }
     }
   }
 
   incrementarCosto() {
-    const costoControl = this.habitacionForm.get('costo');
-    if (costoControl) {
-      const costo = costoControl.value;
-      costoControl.setValue(costo + 1);
+    const totalControl = this.habitacionForm.get('total');
+    if (totalControl) {
+      const total = totalControl.value;
+      totalControl.setValue(total + 50);
     }
   }
 
-
-  get servicios() {
-    return this.habitacionForm.get('servicios') as FormArray;
-  }
-
-  get inventario() {
-    return this.habitacionForm.get('inventario') as FormArray;
-  }
-
-  agregarServicio() {
-    this.servicios.push(this.fb.control('', Validators.required));
-  }
-
-  agregarInventario() {
-    this.inventario.push(this.fb.control('', Validators.required));
-  }
-
-  inventarios(){
-    return this.habitacionForm.controls['inventario'] as FormArray;
-  }
-  servicio(){
-    return this.habitacionForm.controls['servicios'] as FormArray;
-  }
-
-  actualizarHabitacion() {
-    if (this.habitacionForm.invalid) {
-      console.log("El formulario es inválido. Completa todos los campos.");
-      return;
-    }
-
-    const formData = this.habitacionForm.value;
-    const habitacionId = this.habitacionForm.get('id')?.value;
-
-    this.habitacionesService.actualizarHabitacion(habitacionId, formData).subscribe(
-      (habitacionActualizada: any) => {
-        const room = habitacionActualizada as Room;
-        console.log("Habitación actualizada:", room);
-        this.router.navigate(['/habitaciones']);
-      },
-      (error) => {
-        console.error("Error al actualizar la habitación:", error);
-      }
-    );
-  }
-
-  eliminarHabitacion() {
-
-    const habitacionId = this.habitacionForm.get('id')?.value;
-
-    this.habitacionesService.eliminarHabitacion(habitacionId).subscribe(
-      () => {
-        console.log("Habitación eliminada correctamente");
-      },
-      (error) => {
-        console.error("Error al eliminar la habitación:", error);
-      }
-    );
-  }
-
-  seleccionarHabitacion() {
-    this.habitacionSeleccionada = true;
-  }
-
-  deseleccionarHabitacion() {
-    this.habitacionSeleccionada = false;
-}
 
   links = ['landing', 'habitaciones', 'landing', 'landing', 'Login'];
   titles = ['Home a', 'Habitaciones B', 'Servicios C', 'Contacto', 'Login'];

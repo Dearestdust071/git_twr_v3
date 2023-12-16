@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cards-habitaciones',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CardsHabitacionesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   @Input() habitaciones: any;
 
@@ -16,5 +17,10 @@ export class CardsHabitacionesComponent implements OnInit {
   }
 
   prueba = "aaa"
+
+  reservarHabitacion() {
+    this.router.navigate(['/reservas']);
+  }
+
 
 }

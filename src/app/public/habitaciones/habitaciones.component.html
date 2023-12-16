@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class=" form relative h-screen w-screen bg-sky-950 p-32 flex flex-wrap">
+<div class="form relative h-screen w-screen bg-sky-50 p-32 flex flex-wrap">
   <form [formGroup]="habitacionForm" (ngSubmit)="guardarHabitacion()"
     class="parent w-full h-full grid grid-cols-6 grid-rows-6 gap-10">
 
@@ -8,8 +8,8 @@
     <div class="div1 col-span-3 row-span-3 m-4">
       <div class="m-4">
         <mat-form-field class="w-full">
-          <mat-label for="nombre">Nombre:</mat-label>
-          <input matInput type="text" id="nombre" formControlName="nombre" required>
+          <mat-label class="text-gray-100" for="nombre">Nombre:</mat-label>
+          <input class="w-full bg-white border border-gray-300 rounded-md py-2 px-4" matInput type="text" id="nombre" formControlName="nombre" required>
         </mat-form-field>
       </div>
 
@@ -17,9 +17,9 @@
         <mat-form-field class="w-full">
           <mat-label for="capacidad">Capacidad:</mat-label>
           <div class="capacity-input">
-            <button (click)="decrementarCapacidad()">-</button>
-            <input matInput type="number" id="capacidad" formControlName="capacidad" required>
-            <button (click)="incrementarCapacidad()">+</button>
+            <button type="button" (click)="decrementarCapacidad()">-</button>
+            <input class="init" matInput type="number" id="capacidad" formControlName="capacidad" required>
+            <button type="button" (click)="incrementarCapacidad()">+</button>
           </div>
         </mat-form-field>
       </div>
@@ -38,7 +38,7 @@
           <mat-select id="tipo" formControlName="tipo" required>
             <mat-option value="junior">Junior</mat-option>
             <mat-option value="platinum">Platinum</mat-option>
-            <mat-option value="master">Master</mat-option>
+            <mat-option value="gold">Gold</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -50,19 +50,13 @@
 
       <div class="m-4">
         <mat-form-field class="w-full">
-          <mat-label for="costo">Costo por noche:</mat-label>
+          <mat-label for="total">Costo por noche:</mat-label>
           <div class="cost-input">
-            <button (click)="decrementarCosto()">-</button>
-            <input matInput type="number" id="costo" formControlName="costo" required>
-            <button (click)="incrementarCosto()">+</button>
+            <button type="button" (click)="decrementarCosto()">-</button>
+            <input matInput type="number" id="total" formControlName="total" required>
+            <button type="button" (click)="incrementarCosto()">+</button>
           </div>
         </mat-form-field>
-      </div>
-
-      <div class="m-4 " class="w-full">
-        <mat-label class="custom-label">Ocupada</mat-label>
-        <mat-checkbox class="custom-checkbox" id="ocupada" formControlName="ocupada" required></mat-checkbox>
-
       </div>
 
       <div class="m-4">
@@ -77,12 +71,11 @@
 
     <div class="div3 col-span-3 row-span-3 m-4">
 
-      <div class="m-4">
-        <mat-form-field class="w-full">
-          <mat-label for="descripcion">Descripción:</mat-label>
-          <textarea #descripcionTextArea class="styled-textarea" matInput rows="5" id="descripcion"
-            formControlName="descripcion" required></textarea>
-        </mat-form-field>
+      <div class="m-4 p-6">
+        <!-- <mat-form-field class="w-full"> -->
+          <!-- <mat-label for="descripcion">Descripción:</mat-label> -->
+          <ckeditor [editor]="Editor" [config]="editorConfig" formControlName="descripcion" required></ckeditor>
+        <!-- </mat-form-field> -->
       </div>
 
       <div class="m-4">
@@ -128,11 +121,11 @@
     </div>
 
     <div class="button-container update absolute bottom-25 right-30 translate-x-135">
-      <button type="button" class="my-custom-button" [disabled]="!habitacionSeleccionada">Actualizar</button>
+      <button type="button" class="my-custom-button">Actualizar</button>
     </div>
 
     <div class="button-container delete absolute bottom-25 right-30">
-      <button type="button" class="my-custom-button" [disabled]="!habitacionSeleccionada">Eliminar</button>
+      <button type="button" class="my-custom-button">Eliminar</button>
     </div>
 
 

@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 @Component({
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./public.component.css']
 })
 export class PublicComponent {
-
+  public Editor = ClassicEditor;
 }

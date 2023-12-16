@@ -97,7 +97,7 @@
 .flat-button {
   font-size: 18px;
   padding: 10px 20px;
-  background-color: #a7ffe4de;
+  background-color: #aef0dcde;
   color: #000000;
   border-radius: 20px;
   font-family: 'Lucida Sans Regular', sans-serif;
@@ -107,3 +107,16 @@
   background-color: #55090957;
   color: #fff;
 }
+
+.custom-checkbox .mat-checkbox-inner-container {
+  background-color: #e23008;
+}
+
+.custom-checkbox .mat-checkbox-inner-container:hover {
+  background-color: #3538f3;
+}
+
+::ng-deep .ck-editor__editable {
+  height: 130px !important;
+}
+

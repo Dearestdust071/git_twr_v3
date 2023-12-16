@@ -4,11 +4,21 @@ export interface Room {
   capacidad: number;
   extensionTelefonica: string;
   camas: string;
-  tipo: string;
-  costo: number;
-  ocupada: boolean;
+  Tipo_habitacion: string;
+  total: number;
   descripcion: string;
-  imagenes: string;
-  inventario: string[];
-  servicios: string[];
+  imagenes: string[];
+  imagen: string;
+  servicios: Servicio[];
+  inventario: Inventario[];
+}
+
+export interface Servicio {
+  id?: number;
+  nombre: string;
+}
+
+export interface Inventario {
+  id?: number;
+  nombre: string;
 }

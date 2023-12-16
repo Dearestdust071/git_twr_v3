@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListahabitacionesComponent } from './listahabitaciones/listahabitaciones.component';
 import { ReservasComponent } from './reservas/reservas.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ReservasComponent } from './reservas/reservas.component';
     PublicRoutingModule,
     CommonModule,
     RecaptchaModule,
+    CKEditorModule
   ],
 
 })

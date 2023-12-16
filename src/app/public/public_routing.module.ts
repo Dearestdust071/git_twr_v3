@@ -18,6 +18,7 @@ const routes: Routes = [
       {path: 'habitaciones' , component: ListahabitacionesComponent},
       {path: 'habitaciones/agregar', component: HabitacionesComponent },
       {path: 'reservas', component: ReservasComponent},
+     // { path: 'reservas/:id', component: ReservaDetalleComponent }
       {path: '**', redirectTo: 'landing'},
     ]
   }

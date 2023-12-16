@@ -23,7 +23,7 @@ export class ReservasComponent {
 
   calcularSubtotal(fechaInicio: string, fechaFin: string): void {
     if (this.habitacionSeleccionada) {
-      const costoPorNoche = this.habitacionSeleccionada.costo;
+      const costoPorNoche = this.habitacionSeleccionada.total;
       const fechaInicioMs = new Date(fechaInicio).getTime();
       const fechaFinMs = new Date(fechaFin).getTime();
       const tiempoReservaMs = fechaFinMs - fechaInicioMs;

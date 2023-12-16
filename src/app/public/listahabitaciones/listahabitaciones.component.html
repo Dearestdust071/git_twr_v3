@@ -13,27 +13,50 @@
         <mat-grid-tile *ngFor="let habitacion of habitaciones">
           <mat-card class="habitacion-card bg-white shadow-lg rounded-lg">
 
-            <img mat-card-image [src]="habitacion.imagenes" alt="Imagen de la habitación">
+            <img mat-card-image [src]="habitacion.imagen" alt="Imagen de la habitación">
             <mat-card-content>
+              <br>
               <h2>{{ habitacion.nombre }}</h2>
-              <p>Tipo: <span [ngClass]="tipoColor(habitacion.tipo)">{{ habitacion.tipo }}</span></p>
-              <p>Costo por noche: $ {{ habitacion.costo }}</p>
-              <p>Detalles: {{ habitacion.descripcion }}</p>
-              <p>Servicios: {{ habitacion.servicios.join(', ') }}</p>
-              <p>Inventario: {{ habitacion.inventario.join(', ') }}</p>
-              <p>Estado: {{ habitacion.ocupada ? 'Ocupada' : 'Disponible' }}</p>
+              <p>Tipo: <span>{{ habitacion.Tipo_habitacion }}</span></p>
+              <p>Capacidad: {{ habitacion.capacidad }} personas</p>
+              <p>Costo por noche: $ {{ habitacion.total }}</p>
+              <p>Camas: {{ habitacion.camas }}</p>
+              <p>Detalles: {{habitacion.descripcion}}</p>
+              <p>Servicios:
+                <span *ngIf="habitacion.servicios && habitacion.servicios.length > 0">
+                  <span *ngFor="let servicio of habitacion.servicios">
+                    {{ servicio }}
+                  </span>
+                </span>
+                <span *ngIf="!habitacion.servicios || habitacion.servicios.length === 0">
+                  No hay servicios disponibles.
+                </span>
+              </p>
+              <p>Inventario:
+                <span *ngIf="habitacion.inventario && habitacion.inventario.length > 0">
+                  <span *ngFor="let item of habitacion.inventario">
+                    {{ item }}
+                  </span>
+                </span>
+                <span *ngIf="!habitacion.inventario || habitacion.inventario.length === 0">
+                  No hay inventario disponible.
+                </span>
+              </p>
             </mat-card-content>
             <mat-card-actions class="flex justify-between">
-              <button mat-button type="button" class="my-custom-button"
-                (click)="reservarHabitacion(habitacion)">Reservar</button>
+              <button mat-button mat-small type="button" class="my-custom-button"
+                (click)="deatallesHabitacion(habitacion)">Detalles</button>
             </mat-card-actions>
 
           </mat-card>
         </mat-grid-tile>
       </mat-grid-list>
-      <div class="button-container update absolute bottom-25 right-30 translate-x-135">
-        <button mat-button type="button" class="my-custom-button" (click)="irAFormulario()">Crear Hbaitacion</button>
+
+      <div class="button-container">
+        <button mat-button type="button" class="my-custom-button save" (click)="irAFormulario()">Crear
+          Habitación</button>
       </div>
+
     </div>
   </div>
 </div>

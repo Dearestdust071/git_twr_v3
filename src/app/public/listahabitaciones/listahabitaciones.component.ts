@@ -16,48 +16,78 @@ import { Room } from '../habitaciones/Room.model';
   ],
 })
 
-export class ListahabitacionesComponent implements OnInit{
+export class ListahabitacionesComponent implements OnInit {
   habitaciones: Room[] = [];
 
-  constructor(private router: Router, private habitacionesService: HabitacionesService) {}
-
-
-  tipoColor(tipo: string): string {
-    switch (tipo) {
-      case 'Junior':
-        return 'tipo-junior';
-      case 'Platinum':
-        return 'tipo-platinum';
-      case 'Master':
-        return 'tipo-master';
-      default:
-        return '';
-    }
-  }
+  constructor(private router: Router,
+    private habitacionesService: HabitacionesService) { }
 
   ngOnInit(): void {
-    this.obtenerHabitacion();
+    this.obtenerHabitaciones();
   }
 
-  obtenerHabitacion() {
-    this.habitacionesService.getHabitaciones().subscribe(
-      (habitaciones: Room[] | any) => {
-        this.habitaciones = habitaciones as Room[];
+  obtenerHabitaciones(): void {
+    this.habitacionesService.getHabitaciones().subscribe({
+      next: (habitaciones: Room[]) => {
+        this.habitaciones = habitaciones.map((habitacion: Room) => {
+          this.habitacionesService.getServicios().subscribe({
+            next: (servicios: string[]) => {
+              // console.log(servicios);
+              habitacion.servicios = servicios.map((servicio: any) => (servicio.nombre));
+              // console.log(habitacion.servicios);
+            },
+            error: (error: any) => {
+              console.error('Error al obtener servicios:', error);
+            }
+          });
+
+          this.habitacionesService.getInventario().subscribe({
+            next: (inventario: string[]) => {
+              // Mapear los datos de inventario a objetos Inventario
+              habitacion.inventario = inventario.map((item: any) => (item.nombre));
+            },
+            error: (error: any) => {
+              console.error('Error al obtener inventario:', error);
+            }
+          });
+
+          this.obtenerImagenes();
+          return habitacion;
+        });
       },
-      (error: any) => {
-        console.error('Error al obtener las habitaciones', error);
+      error: (error: any) => {
+        console.error('Error al obtener las habitaciones:', error);
         alert('Error al cargar las habitaciones.');
       }
-    );
+    });
   }
 
+  obtenerImagenes(): void {
+    this.habitacionesService.getImagenesTipo().subscribe({
+      next: (imagenes: any[]) => {
+        this.habitaciones.forEach(habitacion => {
+          const imagen = imagenes.find(img => img.id_tipo_habitacion === habitacion.Tipo_habitacion);
+          // console.log("arreglo", imagen);
+          // console.log("habitacion...", habitacion.Tipo_habitacion);
 
-   reservarHabitacion(habitacion: Room) {
-    this.router.navigate(['/reservas', habitacion.id]);
-   }
+          if (imagen) {
+            habitacion.imagen = imagen.imagen;
+          }
+        });
+      },
+      error: (error: any) => {
+        console.error('Error al obtener las imágenes:', error);
+        alert('Error al cargar las imágenes.');
+      }
+    });
+  }
+
+  deatallesHabitacion(habitacion: Room) {
+
+  }
 
   irAFormulario() {
-   this.router.navigate(['/habitaciones/agregar']);
+    this.router.navigate(['/habitaciones/agregar']);
   }
 
 
