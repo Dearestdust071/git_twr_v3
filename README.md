@@ -1,6 +1,6 @@
 # ProyectoTwr
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6. and is compatible with Node versions 16.14.0 || 18.12.0
 This project use Angular Material version 16.2.8 and Tailwind CSS version 3.3.3
 
 ## Development server
